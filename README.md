@@ -89,11 +89,60 @@ ececf17    2023-11-22  eliu    refactor the whole project structure and other op
 a61f483    2023-11-21  eliu    adaption to rocky linux
 ```
 
+## Powershell 支持
+
+目前 Windows 平台下 Powershell 的支持还不完美，主要是由 git 生成的输出通过管道传给 Powershell 原生命令之后会出现中文乱码的情况，目前没有很好的解决办法。
+
+Powershell 下是以 Module 的的形式发布的，具体安装方式如下：
+
+0x01. 复制 `PSGitLogMarkdown` 目录到 Powershell 的模块目录下：
+
+```shell
+# macOS 和 Linux 下
+$HOME/.local/share/powershell/Modules
+# Windows 下
+$HOME\Documents\Powershell\Modules
+```
+
+0x02. 导入模块
+
+```powershell
+Import-Module PSGitLogMarkdown
+```
+
+0x03. 使用 Get-Help 命令确认模块是否已成功安装
+
+```powershell
+PS > Get-Help ConvertFrom-GitLog
+
+NAME
+    ConvertFrom-GitLog
+
+SYNOPSIS
+    ConvertFrom-GitLog convert git-log to markdown format.
+
+
+SYNTAX
+    ConvertFrom-GitLog [[-Since] <String>] [[-Until] <String>] [[-Format] <Object>] [<CommonParameters>]
+
+
+DESCRIPTION
+
+
+RELATED LINKS
+
+REMARKS
+    To see the examples, type: "Get-Help ConvertFrom-GitLog -Examples"
+    For more information, type: "Get-Help ConvertFrom-GitLog -Detailed"
+    For technical information, type: "Get-Help ConvertFrom-GitLog -Full"
+
+```
+
+之后就可以根据帮助文件和 Examples 来生成 Git 日志到指定格式了。
+
 ## 创作灵感
 
 [如何生成 Markdown 格式的 Git 日志 | 楓の葉 (eliu.github.io)](https://eliu.github.io/2020/12/30/git-log-to-markdown/)
-
-
 
 ## 许可
 
