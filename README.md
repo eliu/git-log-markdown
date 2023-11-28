@@ -91,9 +91,7 @@ a61f483    2023-11-21  eliu    adaption to rocky linux
 
 ## Powershell 支持
 
-目前 Windows 平台下 Powershell 的支持还不完美，主要是由 git 生成的输出通过管道传给 Powershell 原生命令之后会出现中文乱码的情况，目前没有很好的解决办法。
-
-Powershell 下是以 Module 的的形式发布的，具体安装方式如下：
+目前已经可以很好的支持 Powershell. Powershell 下是以 Module 的形式发布的，模块具体的安装方式如下：
 
 0x01. 复制 `PSGitLogMarkdown` 目录到 Powershell 的模块目录下：
 
@@ -104,13 +102,28 @@ $HOME/.local/share/powershell/Modules
 $HOME\Documents\Powershell\Modules
 ```
 
-0x02. 导入模块
+0x02. 解除默认脚本执行限制
+
+执行以下脚本检查当前用户执行脚本的策略：
+
+```powershell
+PS > Get-ExecutionPolicy -Scope CurrentUser
+```
+
+如果返回结果是 `Unrestricted` 则无需额外操作，如果是 `Undefined` 或者 `RemoteSigned` 之类的，则需要以管理员职责运行 Powershell 并运行以下命令解除限制：
+
+```powershell
+PS > Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+PS > Unlock-File $HOME\Documents\Powershell\Modules\PSGitLogMarkdown\PSModule.psm1
+```
+
+0x03. 导入模块
 
 ```powershell
 Import-Module PSGitLogMarkdown
 ```
 
-0x03. 使用 Get-Help 命令确认模块是否已成功安装
+0x04. 使用 Get-Help 命令确认模块是否已成功安装
 
 ```powershell
 PS > Get-Help ConvertFrom-GitLog
