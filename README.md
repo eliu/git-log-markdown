@@ -114,7 +114,7 @@ PS > Get-ExecutionPolicy -Scope CurrentUser
 
 ```powershell
 PS > Set-ExecutionPolicy Unrestricted -Scope CurrentUser
-PS > Unlock-File $HOME\Documents\Powershell\Modules\PSGitLogMarkdown\PSModule.psm1
+PS > Unblock-File $HOME\Documents\Powershell\Modules\PSGitLogMarkdown\PSModule.psm1
 ```
 
 0x03. 导入模块
