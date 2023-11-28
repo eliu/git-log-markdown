@@ -46,14 +46,23 @@ function ConvertFrom-GitLog
             $script:OutFileName = "CHANGELOG-$Since-$Until.md"
         }
 
+        # Make sure the Input and Output encoding are both utf-8
+        [Console]::OutputEncoding = [Console]::InputEncoding = [Text.Encoding]::UTF8
+
         if ($VerbosePreference -eq [System.Management.Automation.ActionPreference]::Continue)
         {
+            Write-Verbose "Parameters -> "
             $VerboseOutput = @{}
             $VerboseOutput.Add("COMMIT RANGE"  , ${script:CommitRange})
             $VerboseOutput.Add("FILE NAME"     , ${script:OutFileName})
             $VerboseOutput.Add("GIT REPO"      , ${script:CurrentDirectory})
             $VerboseOutput.Add("OUTPUT FORMAT" , $Format)
             $VerboseOutput | Format-Table
+
+            Write-Verbose "Output encoding -> "
+            [Console]::OutputEncoding | Format-List
+            Write-Verbose "Input encoding -> "
+            [Console]::InputEncoding | Format-List
         }
     }
 
